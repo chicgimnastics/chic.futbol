@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHIC.FUTBOL - Pedidos Grupales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --jersey-color: #b80022;
+      --jersey-text-color: #ffffff;
+      --shorts-color: #1a1a1a;
+      --bg-dark: #0f1015;
+      --card-bg: #181a20;
+      --text-light: #ffffff;
+      --text-muted: #a0a5b5;
+      --border-color: #2a2d38;
+      --active-color: #b80022;
+      --green-accent: #00e676;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      padding: 24px 16px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .brand-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .brand-title span {
+      color: #b80022;
+    }
+
+    .brand-subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 6px;
+    }
+
+    /* BANNER DE PRECIO PROMOCIONAL (COLOR ROJO FIJO) */
+    .promo-banner {
+      background: linear-gradient(135deg, rgba(184, 0, 34, 0.25), rgba(24, 26, 32, 0.95));
+      border: 1px solid #b80022;
+      border-radius: 12px;
+      padding: 14px 20px;
+      margin: 18px auto 0 auto;
+      max-width: 650px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .promo-badge {
+      background: #b80022;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .promo-price {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .price-unit {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .promo-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 18px;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .promo-details span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 900px) {
+      .grid-layout {
+        grid-template-columns: 400px 1fr;
+        align-items: start;
+      }
+    }
+
+    /* Cards */
+    .preview-card, .form-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .preview-card {
+      text-align: center;
+      position: sticky;
+      top: 20px;
+    }
+
+    .preview-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .kit-svg-container {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+      transition: all 0.3s ease;
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .section-divider {
+      border-top: 1px solid var(--border-color);
+      margin: 28px 0 20px 0;
+    }
+
+    .section-header-title {
+      font-size: 1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-header-title span {
+      color: var(--active-color);
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 600px) {
+      .form-row.two-cols {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .touch-btn {
+      background: var(--bg-dark);
+      border: 2px solid var(--border-color);
+      color: var(--text-light);
+      padding: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .touch-btn.active {
+      background: var(--active-color);
+      border-color: var(--active-color);
+      color: #ffffff;
+    }
+
+    .color-picker-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .color-chip {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid var(--border-color);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      position: relative;
+    }
+
+    .color-chip:hover {
+      transform: scale(1.08);
+    }
+
+    .color-chip.active {
+      border-color: #ffffff;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+      transform: scale(1.12);
+    }
+
+    .color-chip.active::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background-color: #ffffff;
+      border-radius: 50%;
+    }
+
+    .color-chip[data-color="#ffffff"].active::after {
+      background-color: #111111;
+    }
+
+    .input-field {
+      width: 100%;
+      background: var(--bg-dark);
+      border: 2px solid var(--border-color);
+      color: var(--text-light);
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 10px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-field:focus {
+      border-color: var(--active-color);
+    }
+
+    .size-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+      .size-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .size-btn {
+      position: relative;
+      background: var(--bg-dark);
+      border: 2px solid var(--border-color);
+      color: var(--text-light);
+      padding: 12px 0;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .size-btn.active {
+      background: var(--active-color);
+      border-color: var(--active-color);
+    }
+
+    /* ESTILOS DEL TOOLTIP DE MEDIDAS AL PASAR EL CURSOR (HOVER) */
+    .size-btn[data-measure]::after {
+      content: attr(data-measure);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: #000000;
+      color: #ffffff;
+      padding: 6px 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      z-index: 200;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    }
+
+    /* Flechita inferior del tooltip */
+    .size-btn[data-measure]::before {
+      content: '';
+      position: absolute;
+      bottom: calc(100% + 2px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      border-width: 6px 6px 0 6px;
+      border-style: solid;
+      border-color: #000000 transparent transparent transparent;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      z-index: 201;
+    }
+
+    /* Activación al pasar el mouse (Hover) o dar foco */
+    .size-btn[data-measure]:hover::after,
+    .size-btn[data-measure]:hover::before {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Botón Agregar Kit */
+    .add-kit-btn {
+      width: 100%;
+      background: #3b82f6;
+      color: #ffffff;
+      border: none;
+      padding: 16px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin-bottom: 24px;
+    }
+
+    .add-kit-btn:hover {
+      background: #2563eb;
+    }
+
+    /* Resumen del Pedido */
+    .order-summary {
+      background: var(--bg-dark);
+      border: 2px dashed var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .summary-header {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .kit-item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .kit-item-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .kit-item-info {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .kit-item-title {
+      font-weight: 800;
+      color: #ffffff;
+      font-size: 0.98rem;
+      margin-bottom: 2px;
+    }
+
+    .kit-item-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .kit-item-subtotal {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--green-accent);
+    }
+
+    .delete-btn {
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 2px 6px;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .delete-btn:hover {
+      color: #dc2626;
+    }
+
+    /* ESTILOS DE TOTALES */
+    .order-totals {
+      border-top: 1px solid var(--border-color);
+      margin-top: 16px;
+      padding-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .total-row.unit-row {
+      color: var(--text-muted);
+    }
+
+    .total-row.cash-row {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--green-accent);
+      margin-top: 4px;
+    }
+
+    .total-row.card-row {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    /* BOTÓN CTA WHATSAPP (Optimizado) */
+    .cta-btn {
+      width: 100%;
+      background: #25d366;
+      color: #ffffff;
+      border: none;
+      padding: 18px 20px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .cta-btn:hover {
+      background: #20bd5a;
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45);
+    }
+
+    .cta-btn:active {
+      transform: scale(0.98);
+    }
+
+    .cta-btn svg {
+      width: 30px;
+      height: 30px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 12px 0;
+    }
+
+    /* Modal / Pop-up Base */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px 24px;
+      max-width: 440px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-icon {
+      font-size: 2.8rem;
+      margin-bottom: 8px;
+    }
+
+    .modal-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.6rem;
+      color: #ffffff;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .modal-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .modal-text strong {
+      color: #ffffff;
+      word-break: break-all;
+    }
+
+    .modal-btn {
+      width: 100%;
+      background: var(--active-color);
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .modal-btn:hover {
+      background: #90001b;
+    }
+
+    /* Contenedor de las etiquetas en la tarjeta */
+    .preview-info-pills {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin: 4px 0 8px 0;
+      flex-wrap: wrap;
+    }
+
+    /* Estilo base de cada etiqueta */
+    .preview-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #e0e0e0;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Destacado especial para el rol */
+    .preview-pill.role-pill {
+      background: rgba(230, 0, 92, 0.2);
+      border-color: #e6005c;
+      color: #fff;
+    }
+
+    /* OPTIMIZACIONES ESPECÍFICAS PARA DISPOSITIVOS MÓVILES */
+    @media (max-width: 899px) {
+      .preview-card {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 100 !important;
+        background: var(--bg-dark) !important;
+        padding: 10px 16px !important;
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 0 0 16px 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+      }
+
+      .kit-svg-container {
+        max-width: 220px !important;
+      }
+
+      .preview-title {
+        font-size: 0.75rem !important;
+        margin-bottom: 4px !important;
+      }
+
+      .cta-btn {
+        padding: 20px 18px;
+        font-size: 1.15rem;
+        border-radius: 14px;
+        box-shadow: 0 12px 30px rgba(37, 211, 102, 0.45);
+      }
+
+      .cta-btn svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1 class="brand-title">CHIC<span>.FUTBOL</span></h1>
+      <p class="brand-subtitle">Diseñá los kits de tu equipo y encargá el pedido completo por WhatsApp</p>
+
+      <!-- ANUNCIO DE PRECIO Y PROMOCIÓN -->
+      <div class="promo-banner">
+        <div class="promo-price">
+          <span class="promo-badge">PROMO HASTA NOVIEMBRE</span>
+          $50.000 <span class="price-unit">/ conjunto</span>
+        </div>
+        <div class="promo-details">
+          <span>💵 <strong>Efectivo / Transferencia:</strong> $50.000</span>
+          <span>💳 <strong>Tarjeta de Crédito / Débito:</strong> 10% de recargo ($55.000)</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid-layout">
+      <!-- Preview Vector -->
+      <div class="preview-card">
+        <div class="preview-title">Vista Previa del Uniforme Actual</div>
+        <div class="preview-info-pills">
+          <span class="preview-pill role-pill" id="pillRole">JUGADORA</span>
+          <span class="preview-pill" id="pillJerseySize">CAMISETA: M</span>
+          <span class="preview-pill" id="pillShortsSize">SHORT: M</span>
+          <span class="preview-pill" id="pillSocks">MEDIAS: SÍ</span>
+          <span class="preview-pill" id="pillQty">CANT: 1</span>
+        </div>
+        <div class="kit-svg-container">
+          <svg viewBox="0 0 300 380" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="foldShadow" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#000" stop-opacity="0.25"/>
+                <stop offset="25%" stop-color="#000" stop-opacity="0.0"/>
+                <stop offset="50%" stop-color="#fff" stop-opacity="0.12"/>
+                <stop offset="75%" stop-color="#000" stop-opacity="0.0"/>
+                <stop offset="100%" stop-color="#000" stop-opacity="0.25"/>
+              </linearGradient>
+            </defs>
+
+            <!-- SHORTS -->
+            <g id="shorts-group">
+              <path d="M 95 210 Q 150 215 205 210 L 210 225 Q 150 230 90 225 Z" fill="#111" opacity="0.4"/>
+              <path id="svgShortsBody" d="M 90 220 L 210 220 L 225 300 L 160 305 L 150 250 L 140 305 L 75 300 Z" fill="var(--shorts-color)" stroke="#111" stroke-width="2"/>
+              <path d="M 90 220 L 210 220 L 225 300 L 160 305 L 150 250 L 140 305 L 75 300 Z" fill="url(#foldShadow)"/>
+            </g>
+
+            <!-- CAMISETA -->
+            <g id="jersey-group">
+              <path id="svgSleeveLeft" d="M 90 35 L 35 75 L 55 125 L 85 110 Z" fill="var(--jersey-color)" stroke="#111" stroke-width="1.5"/>
+              <!-- PUÑO IZQUIERDO -->
+              <path id="svgCuffLeft" d="M 35 75 L 43 69 L 63 121 L 55 125 Z" fill="#ffffff"/>
+
+              <path id="svgSleeveRight" d="M 210 35 L 265 75 L 245 125 L 215 110 Z" fill="var(--jersey-color)" stroke="#111" stroke-width="1.5"/>
+              <!-- PUÑO DERECHO -->
+              <path id="svgCuffRight" d="M 265 75 L 257 69 L 237 121 L 245 125 Z" fill="#ffffff"/>
+
+              <path id="svgJerseyBody" d="M 90 35 Q 150 48 210 35 L 220 215 Q 150 225 80 215 Z" fill="var(--jersey-color)" stroke="#111" stroke-width="2"/>
+              <!-- CUELLO EN BLANCO FIJO -->
+              <path id="svgCollar" d="M 115 38 Q 150 60 185 38 Q 150 25 115 38 Z" fill="#ffffff"/>
+              <path d="M 90 35 Q 150 48 210 35 L 220 215 Q 150 225 80 215 Z" fill="url(#foldShadow)"/>
+
+              <!-- TEXTO Y NÚMEROS DINÁMICOS -->
+              <text id="svgBrand" x="150" y="70" font-family="'Oswald', sans-serif" font-size="10" font-weight="700" fill="var(--jersey-text-color)" text-anchor="middle" letter-spacing="2" opacity="0.85">CHIC.FUTBOL</text>
+              <text id="svgName" x="150" y="102" font-family="'Oswald', sans-serif" font-size="19" font-weight="700" fill="var(--jersey-text-color)" text-anchor="middle" letter-spacing="2">SOFIA</text>
+              <text id="svgNumber" x="150" y="180" font-family="'Oswald', sans-serif" font-size="68" font-weight="700" fill="var(--jersey-text-color)" text-anchor="middle">10</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Formulario de Configuración -->
+      <div class="form-card">
+        <!-- 1. Rol -->
+        <div class="form-group">
+          <label class="section-label">1. Seleccioná el Rol</label>
+          <div class="btn-group">
+            <button type="button" class="touch-btn active" data-role="Jugadora">Jugadora</button>
+            <button type="button" class="touch-btn" data-role="Arquera">Arquera</button>
+          </div>
+        </div>
+
+        <!-- 2. Color Camiseta -->
+        <div class="form-group">
+          <label class="section-label">2. Color de la Camiseta</label>
+          <div class="color-picker-grid" id="jerseyColorPicker">
+            <div class="color-chip active" data-color="#b80022" data-name="Rojo CHIC" style="background-color: #b80022;" title="Rojo CHIC"></div>
+            <div class="color-chip" data-color="#1a1a1a" data-name="Negro" style="background-color: #1a1a1a;" title="Negro CHIC"></div>
+            <div class="color-chip" data-color="#0f4c81" data-name="Azul Francia" style="background-color: #0f4c81;" title="Azul Francia"></div>
+            <div class="color-chip" data-color="#e83e8c" data-name="Rosa CHIC" style="background-color: #e83e8c;" title="Rosa CHIC"></div>
+            <div class="color-chip" data-color="#ffffff" data-name="Blanco" style="background-color: #ffffff;" title="Blanco CHIC"></div>
+            <div class="color-chip" data-color="#00875a" data-name="Verde" style="background-color: #00875a;" title="Verde CHIC"></div>
+            <div class="color-chip" data-color="#f5b000" data-name="Amarillo" style="background-color: #f5b000;" title="Amarillo CHIC"></div>
+            <div class="color-chip" data-color="#4ba3e3" data-name="Celeste" style="background-color: #4ba3e3;" title="Celeste CHIC"></div>
+            <div class="color-chip" data-color="#0a2540" data-name="Azul Marino" style="background-color: #0a2540;" title="Azul Marino CHIC"></div>
+            <div class="color-chip" data-color="#4a4a4a" data-name="Gris Oscuro" style="background-color: #4a4a4a;" title="Gris Oscuro"></div>
+          </div>
+        </div>
+
+        <!-- 3. Color Short -->
+        <div class="form-group">
+          <label class="section-label">3. Color del Short</label>
+          <div class="color-picker-grid" id="shortsColorPicker">
+            <div class="color-chip active" data-color="#1a1a1a" data-name="Negro" style="background-color: #1a1a1a;" title="Negro CHIC"></div>
+            <div class="color-chip" data-color="#ffffff" data-name="Blanco" style="background-color: #ffffff;" title="Blanco CHIC"></div>
+            <div class="color-chip" data-color="#b80022" data-name="Rojo CHIC" style="background-color: #b80022;" title="Rojo CHIC"></div>
+            <div class="color-chip" data-color="#0a2540" data-name="Azul Marino" style="background-color: #0a2540;" title="Azul Marino CHIC"></div>
+            <div class="color-chip" data-color="#4a4a4a" data-name="Gris Oscuro" style="background-color: #4a4a4a;" title="Gris Oscuro"></div>
+            <div class="color-chip" data-color="#e83e8c" data-name="Rosa CHIC" style="background-color: #e83e8c;" title="Rosa CHIC"></div>
+            <div class="color-chip" data-color="#f5b000" data-name="Amarillo" style="background-color: #f5b000;" title="Amarillo CHIC"></div>
+            <div class="color-chip" data-color="#4ba3e3" data-name="Celeste" style="background-color: #4ba3e3;" title="Celeste CHIC"></div>
+            <div class="color-chip" data-color="#00875a" data-name="Verde" style="background-color: #00875a;" title="Verde CHIC"></div>
+            <div class="color-chip" data-color="#0f4c81" data-name="Azul Francia" style="background-color: #0f4c81;" title="Azul Francia"></div>
+          </div>
+        </div>
+
+        <!-- 4. Nombre -->
+        <div class="form-group">
+          <label class="section-label" for="inputName">4. Nombre en la Espalda</label>
+          <input type="text" id="inputName" class="input-field" placeholder="SOFIA" maxlength="12" value="SOFIA" autocomplete="off">
+        </div>
+
+        <!-- 5. Número -->
+        <div class="form-group">
+          <label class="section-label" for="inputNumber">5. Número</label>
+          <input type="number" id="inputNumber" class="input-field" placeholder="10" value="10" min="1" max="99">
+        </div>
+
+        <!-- 6. Talle Camiseta con Medidas en Hover -->
+        <div class="form-group">
+          <label class="section-label">6. Talle de la Camiseta</label>
+          <div class="size-grid" id="jerseySizeGrid">
+            <button type="button" class="size-btn" data-jersey-size="XS" data-measure="Ancho: 44 cm | Largo: 60 cm">XS</button>
+            <button type="button" class="size-btn" data-jersey-size="S" data-measure="Ancho: 46 cm | Largo: 61 cm">S</button>
+            <button type="button" class="size-btn active" data-jersey-size="M" data-measure="Ancho: 48 cm | Largo: 62 cm">M</button>
+            <button type="button" class="size-btn" data-jersey-size="L" data-measure="Ancho: 50 cm | Largo: 63 cm">L</button>
+            <button type="button" class="size-btn" data-jersey-size="XL" data-measure="Ancho: 52 cm | Largo: 64 cm">XL</button>
+            <button type="button" class="size-btn" data-jersey-size="2XL" data-measure="Ancho: 54 cm | Largo: 65 cm">2XL</button>
+            <button type="button" class="size-btn" data-jersey-size="3XL" data-measure="Ancho: 56 cm | Largo: 66 cm">3XL</button>
+            <button type="button" class="size-btn" data-jersey-size="4XL" data-measure="Ancho: 58 cm | Largo: 67 cm">4XL</button>
+          </div>
+        </div>
+
+        <!-- 7. Talle Short con Medidas en Hover -->
+        <div class="form-group">
+          <label class="section-label">7. Talle del Short</label>
+          <div class="size-grid" id="shortsSizeGrid">
+            <button type="button" class="size-btn" data-shorts-size="XS" data-measure="Ancho: 52 cm | Largo: 36 cm">XS</button>
+            <button type="button" class="size-btn" data-shorts-size="S" data-measure="Ancho: 54 cm | Largo: 37 cm">S</button>
+            <button type="button" class="size-btn active" data-shorts-size="M" data-measure="Ancho: 56 cm | Largo: 38 cm">M</button>
+            <button type="button" class="size-btn" data-shorts-size="L" data-measure="Ancho: 58 cm | Largo: 39 cm">L</button>
+            <button type="button" class="size-btn" data-shorts-size="XL" data-measure="Ancho: 60 cm | Largo: 40 cm">XL</button>
+            <button type="button" class="size-btn" data-shorts-size="2XL" data-measure="Ancho: 62 cm | Largo: 41 cm">2XL</button>
+            <button type="button" class="size-btn" data-shorts-size="3XL" data-measure="Ancho: 64 cm | Largo: 42 cm">3XL</button>
+            <button type="button" class="size-btn" data-shorts-size="4XL" data-measure="Ancho: 66 cm | Largo: 43 cm">4XL</button>
+          </div>
+        </div>
+
+        <!-- 8. Medias -->
+        <div class="form-group">
+          <label class="section-label">8. ¿Agregar Medias Oficiales?</label>
+          <div class="btn-group">
+            <button type="button" class="touch-btn active" data-socks="Sí">Sí</button>
+            <button type="button" class="touch-btn" data-socks="No">No</button>
+          </div>
+        </div>
+
+        <!-- 9. Cantidad -->
+        <div class="form-group">
+          <label class="section-label" for="inputQuantity">9. Cantidad de este Conjunto</label>
+          <input type="number" id="inputQuantity" class="input-field" placeholder="1" value="1" min="1" max="99">
+        </div>
+
+        <!-- Botón para añadir este Kit -->
+        <button type="button" class="add-kit-btn" id="addKitBtn">+ Agregar este kit al pedido</button>
+
+        <!-- Lista / Resumen del Pedido -->
+        <div class="order-summary">
+          <div class="summary-header">
+            <span>KITS CARGADOS EN EL PEDIDO</span>
+            <span id="kitCountTag">(0)</span>
+          </div>
+          <div class="kit-item-list" id="kitItemList">
+            <div class="empty-state">No hay kits agregados aún. Configurá uno y presioná "+ Agregar este kit".</div>
+          </div>
+
+          <!-- DESGLOSE DE TOTALES -->
+          <div class="order-totals" id="orderTotals" style="display: none;">
+            <div class="total-row unit-row">
+              <span>Precio unitario promocional:</span>
+              <span>$50.000 / conjunto</span>
+            </div>
+            <div class="total-row cash-row">
+              <span>TOTAL EFECTIVO / TRANSF:</span>
+              <span id="totalCashVal">$0</span>
+            </div>
+            <div class="total-row card-row">
+              <span>TOTAL CON TARJETA (+10%):</span>
+              <span id="totalCardVal">$0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECCIÓN DE DATOS DEL CLIENTE / ENVÍO -->
+        <div class="section-divider"></div>
+        <div class="section-header-title">📋 Datos del Cliente y Envío</div>
+
+        <div class="form-row two-cols">
+          <div class="form-group">
+            <label class="section-label" for="clientName">Nombre y Apellido</label>
+            <input type="text" id="clientName" class="input-field" placeholder="María González" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="section-label" for="clientDni">DNI / CUIT</label>
+            <input type="number" id="clientDni" class="input-field" placeholder="13.456.234" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="form-row two-cols">
+          <div class="form-group">
+            <label class="section-label" for="clientEmail">Email</label>
+            <input type="email" id="clientEmail" class="input-field" placeholder="cliente@email.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="section-label" for="clientAddress">Dirección y Número</label>
+            <input type="text" id="clientAddress" class="input-field" placeholder="Av. Colón 1234 2°B" autocomplete="street-address">
+          </div>
+        </div>
+
+        <div class="form-row two-cols">
+          <div class="form-group">
+            <label class="section-label" for="clientBarrio">Barrio</label>
+            <input type="text" id="clientBarrio" class="input-field" placeholder="Alberdi">
+          </div>
+          <div class="form-group">
+            <label class="section-label" for="clientCity">Ciudad</label>
+            <input type="text" id="clientCity" class="input-field" placeholder="Córdoba">
+          </div>
+        </div>
+
+        <div class="form-row two-cols">
+          <div class="form-group">
+            <label class="section-label" for="clientProvince">Provincia</label>
+            <input type="text" id="clientProvince" class="input-field" placeholder="Córdoba">
+          </div>
+          <div class="form-group">
+            <label class="section-label" for="clientZip">Código Postal (CP)</label>
+            <input type="text" id="clientZip" class="input-field" placeholder="5000">
+          </div>
+        </div>
+
+        <!-- Botón de Envío con Logo Oficial de WhatsApp -->
+        <button type="button" class="cta-btn" id="submitBtn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.758.459 3.474 1.33 4.982l-1.413 5.163 5.281-1.385c1.455.794 3.097 1.213 4.787 1.214h.004c5.505 0 9.989-4.478 9.99-9.984 0-2.668-1.039-5.176-2.926-7.062-1.887-1.887-4.394-2.926-7.063-2.926zm5.827 14.126c-.244.686-1.413 1.311-1.976 1.394-.505.075-1.144.106-1.845-.117-.425-.135-.971-.316-1.67-.618-2.942-1.27-4.842-4.237-4.989-4.433-.147-.196-1.196-1.593-1.196-3.038 0-1.445.756-2.156 1.025-2.45.269-.294.587-.368.783-.368.196 0 .392.001.562.01.18.009.421-.068.66.505.244.588.832 2.033.905 2.18.073.147.122.319.025.515-.098.196-.147.319-.294.49-.147.171-.309.382-.441.513-.147.147-.301.308-.13.6.171.292.76 1.253 1.631 2.03 1.118.996 2.062 1.304 2.356 1.45.294.147.465.122.637-.074.171-.196.735-.856.931-1.15.196-.294.392-.245.66-.147.269.098 1.706.804 2.001.951.294.147.49.221.563.343.073.122.073.71-.171 1.396z"/>
+          </svg>
+          Encargar Pedido por WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pop-up de Validación / Alertas -->
+  <div id="errorModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-icon">⚠️</div>
+      <h3 class="modal-title">Campo Requerido</h3>
+      <p class="modal-text" id="modalErrorText">Por favor, completá los datos faltantes.</p>
+      <button type="button" class="modal-btn" id="closeErrorModalBtn">Entendido</button>
+    </div>
+  </div>
+
+  <!-- Pop-up de confirmación de Envío -->
+  <div id="emailModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-icon">📩</div>
+      <h3 class="modal-title">¡Solicitud Registrada!</h3>
+      <p class="modal-text">
+        Te enviamos una copia detallada del pedido a <strong id="modalClientEmail">tu correo</strong>.<br><br>
+        Presioná el botón para continuar la conversación en WhatsApp.
+      </p>
+      <button type="button" class="modal-btn" id="closeModalBtn">Continuar a WhatsApp</button>
+    </div>
+  </div>
+
+  <script>
+    const WHATSAPP_NUMBER = '5493516563419';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwlXs5AhZKPIodx6YOE9lJLAwdQfr8BhHHg7HxnbnvCATo1gx6IKvEla56okhMoPwOw/exec';
+
+    // Elementos DOM
+    const svgName = document.getElementById('svgName');
+    const svgNumber = document.getElementById('svgNumber');
+    const inputName = document.getElementById('inputName');
+    const inputNumber = document.getElementById('inputNumber');
+    const inputQuantity = document.getElementById('inputQuantity');
+    const roleBtns = document.querySelectorAll('[data-role]');
+    const jerseySizeBtns = document.querySelectorAll('[data-jersey-size]');
+    const shortsSizeBtns = document.querySelectorAll('[data-shorts-size]');
+    const socksBtns = document.querySelectorAll('[data-socks]');
+    const addKitBtn = document.getElementById('addKitBtn');
+    const kitItemList = document.getElementById('kitItemList');
+    const kitCountTag = document.getElementById('kitCountTag');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Elementos Totales
+    const orderTotals = document.getElementById('orderTotals');
+    const totalCashVal = document.getElementById('totalCashVal');
+    const totalCardVal = document.getElementById('totalCardVal');
+
+    // Elementos Cliente
+    const clientNameInput = document.getElementById('clientName');
+    const clientDniInput = document.getElementById('clientDni');
+    const clientEmailInput = document.getElementById('clientEmail');
+    const clientAddressInput = document.getElementById('clientAddress');
+    const clientBarrioInput = document.getElementById('clientBarrio');
+    const clientCityInput = document.getElementById('clientCity');
+    const clientProvinceInput = document.getElementById('clientProvince');
+    const clientZipInput = document.getElementById('clientZip');
+
+    const jerseyChips = document.querySelectorAll('#jerseyColorPicker .color-chip');
+    const shortsChips = document.querySelectorAll('#shortsColorPicker .color-chip');
+
+    // Modales
+    const emailModal = document.getElementById('emailModal');
+    const modalClientEmail = document.getElementById('modalClientEmail');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    const errorModal = document.getElementById('errorModal');
+    const modalErrorText = document.getElementById('modalErrorText');
+    const closeErrorModalBtn = document.getElementById('closeErrorModalBtn');
+
+    let pendingWhatsappUrl = '';
+    let elementToFocus = null;
+
+    // Función para mostrar alertas personalizadas
+    function showErrorModal(message, inputToFocus = null) {
+      modalErrorText.textContent = message;
+      elementToFocus = inputToFocus;
+      errorModal.classList.add('active');
+    }
+
+    closeErrorModalBtn.addEventListener('click', () => {
+      errorModal.classList.remove('active');
+      if (elementToFocus) {
+        elementToFocus.focus();
+        elementToFocus = null;
+      }
+    });
+
+    // Estado local del kit en edición
+    let currentConfig = {
+      role: 'Jugadora',
+      jerseyColor: '#b80022',
+      jerseyColorName: 'Rojo CHIC',
+      shortsColor: '#1a1a1a',
+      shortsColorName: 'Negro',
+      jerseySize: 'M',
+      shortsSize: 'M',
+      socks: 'Sí'
+    };
+
+    // Arreglo con la lista del pedido
+    let orderList = [];
+
+    // Función para actualizar las etiquetas flotantes en la vista previa
+    function updatePreviewBadges() {
+      const pillRole = document.getElementById('pillRole');
+      const pillJerseySize = document.getElementById('pillJerseySize');
+      const pillShortsSize = document.getElementById('pillShortsSize');
+      const pillSocks = document.getElementById('pillSocks');
+      const pillQty = document.getElementById('pillQty');
+
+      if (pillRole) {
+        pillRole.textContent = (currentConfig.role || 'JUGADORA').toUpperCase();
+      }
+
+      if (pillJerseySize) {
+        pillJerseySize.textContent = `CAMISETA: ${currentConfig.jerseySize || 'M'}`;
+      }
+
+      if (pillShortsSize) {
+        pillShortsSize.textContent = `SHORT: ${currentConfig.shortsSize || 'M'}`;
+      }
+
+      if (pillSocks) {
+        pillSocks.textContent = `MEDIAS: ${(currentConfig.socks || 'Sí').toUpperCase()}`;
+      }
+
+      if (pillQty && inputQuantity) {
+        const qty = Math.max(1, parseInt(inputQuantity.value) || 1);
+        pillQty.textContent = `CANT: ${qty}`;
+      }
+    }
+
+    // Devuelve color contrastante exclusivamente para las letras (Negro si la prenda es Blanca o Amarilla)
+    function getTextColorForBg(hexColor) {
+      if (!hexColor) return '#ffffff';
+      const cleanHex = hexColor.toLowerCase().trim();
+      if (cleanHex === '#ffffff' || cleanHex === '#f5b000') {
+        return '#111111';
+      }
+      return '#ffffff';
+    }
+
+    // Camiseta
+    jerseyChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        jerseyChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+
+        currentConfig.jerseyColor = chip.dataset.color;
+        currentConfig.jerseyColorName = chip.dataset.name;
+        const textColor = getTextColorForBg(currentConfig.jerseyColor);
+
+        document.documentElement.style.setProperty('--jersey-color', currentConfig.jerseyColor);
+        document.documentElement.style.setProperty('--jersey-text-color', textColor);
+      });
+    });
+
+    // Short
+    shortsChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        shortsChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+
+        currentConfig.shortsColor = chip.dataset.color;
+        currentConfig.shortsColorName = chip.dataset.name;
+        document.documentElement.style.setProperty('--shorts-color', currentConfig.shortsColor);
+      });
+    });
+
+    // Rol
+    roleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        roleBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentConfig.role = btn.dataset.role;
+
+        if (currentConfig.role === 'Arquera') {
+          jerseyChips[1].click();
+          shortsChips[0].click();
+        } else {
+          jerseyChips[0].click();
+          shortsChips[0].click();
+        }
+
+        updatePreviewBadges();
+      });
+    });
+
+    // Nombre
+    inputName.addEventListener('input', (e) => {
+      const val = e.target.value.toUpperCase();
+      e.target.value = val;
+      svgName.textContent = val.trim() !== '' ? val : 'NOMBRE';
+    });
+
+    // Número
+    inputNumber.addEventListener('input', (e) => {
+      let val = e.target.value;
+      if (val.length > 2) {
+        val = val.slice(0, 2);
+        e.target.value = val;
+      }
+      svgNumber.textContent = val !== '' ? val : '10';
+    });
+
+    // Talle Camiseta
+    jerseySizeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        jerseySizeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentConfig.jerseySize = btn.dataset.jerseySize;
+        updatePreviewBadges();
+      });
+    });
+
+    // Talle Short
+    shortsSizeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        shortsSizeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentConfig.shortsSize = btn.dataset.shortsSize;
+        updatePreviewBadges();
+      });
+    });
+
+    // Medias
+    socksBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        socksBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentConfig.socks = btn.dataset.socks;
+        updatePreviewBadges();
+      });
+    });
+
+    // Cantidad
+    if (inputQuantity) {
+      inputQuantity.addEventListener('input', updatePreviewBadges);
+      inputQuantity.addEventListener('change', updatePreviewBadges);
+    }
+
+    // Agregar Kit al Pedido
+    addKitBtn.addEventListener('click', () => {
+      const name = inputName.value.trim();
+      const number = inputNumber.value.trim();
+      const quantity = Math.max(1, parseInt(inputQuantity.value) || 1);
+
+      if (!name) {
+        showErrorModal('Por favor, ingresá el Nombre para la espalda antes de agregar el kit.', inputName);
+        return;
+      }
+
+      if (!number) {
+        showErrorModal('Por favor, ingresá el Número antes de agregar el kit.', inputNumber);
+        return;
+      }
+
+      orderList.push({
+        ...currentConfig,
+        name: name,
+        number: number,
+        quantity: quantity
+      });
+
+      renderOrderList();
+
+      // Limpia campos de texto y resetea cantidad
+      inputName.value = '';
+      inputNumber.value = '';
+      inputQuantity.value = '1';
+      svgName.textContent = 'NOMBRE';
+      svgNumber.textContent = '10';
+
+      updatePreviewBadges();
+    });
+
+    // Renderizar lista e interfaz de totales
+    function renderOrderList() {
+      const totalUnits = orderList.reduce((acc, kit) => acc + kit.quantity, 0);
+      kitCountTag.textContent = `(${totalUnits})`;
+
+      if (orderList.length === 0) {
+        kitItemList.innerHTML = '<div class="empty-state">No hay kits agregados aún. Configurá uno y presioná "+ Agregar este kit".</div>';
+        orderTotals.style.display = 'none';
+        return;
+      }
+
+      kitItemList.innerHTML = orderList.map((kit, index) => {
+        const subtotal = (kit.quantity * 50000).toLocaleString('es-AR');
+        return `
+          <div class="kit-item-card">
+            <div class="kit-item-info">
+              <div class="kit-item-title">#${kit.number} ${kit.name} (${kit.role}) x${kit.quantity}</div>
+              <div class="kit-item-meta">Camiseta: ${kit.jerseyColorName} (Talle ${kit.jerseySize}) | Short: ${kit.shortsColorName} (Talle ${kit.shortsSize}) | Medias: ${kit.socks}</div>
+              <div class="kit-item-subtotal">Subtotal Efectivo: $${subtotal}</div>
+            </div>
+            <button class="delete-btn" onclick="removeKit(${index})" title="Eliminar kit">✕</button>
+          </div>
+        `;
+      }).join('');
+
+      // Calcular totales generales
+      const totalCash = (totalUnits * 50000).toLocaleString('es-AR');
+      const totalCard = (totalUnits * 55000).toLocaleString('es-AR');
+
+      totalCashVal.textContent = `$${totalCash}`;
+      totalCardVal.textContent = `$${totalCard}`;
+      orderTotals.style.display = 'flex';
+    }
+
+    // Eliminar un conjunto cargado
+    window.removeKit = function(index) {
+      orderList.splice(index, 1);
+      renderOrderList();
+    };
+
+    // Generar ID de orden
+    function getNextOrderId() {
+      let lastId = localStorage.getItem('chic_last_order_id');
+      let nextId = lastId ? parseInt(lastId) + 1 : 1001;
+      localStorage.setItem('chic_last_order_id', nextId);
+      return '#' + nextId;
+    }
+
+    // Envío total a WhatsApp y Email
+    submitBtn.addEventListener('click', () => {
+      // 1. Validar que la lista de pedido tenga kits
+      if (orderList.length === 0) {
+        const name = inputName.value.trim();
+        const number = inputNumber.value.trim();
+
+        if (!name || !number) {
+          showErrorModal('Por favor, completá el Nombre y Número para agregar al menos un kit al pedido.', !name ? inputName : inputNumber);
+          return;
+        }
+
+        const quantity = Math.max(1, parseInt(inputQuantity.value) || 1);
+        orderList.push({ ...currentConfig, name, number, quantity });
+        renderOrderList();
+      }
+
+      // 2. Validar que TODOS los campos del cliente estén completos
+      const clientFields = [
+        { input: clientNameInput, name: 'Nombre y Apellido' },
+        { input: clientDniInput, name: 'DNI / CUIT' },
+        { input: clientEmailInput, name: 'Email' },
+        { input: clientAddressInput, name: 'Dirección y Número' },
+        { input: clientBarrioInput, name: 'Barrio' },
+        { input: clientCityInput, name: 'Ciudad' },
+        { input: clientProvinceInput, name: 'Provincia' },
+        { input: clientZipInput, name: 'Código Postal' }
+      ];
+
+      for (let field of clientFields) {
+        if (!field.input.value.trim()) {
+          showErrorModal(`Por favor, completá el campo "${field.name}" para continuar.`, field.input);
+          return;
+        }
+      }
+
+      const clientName = clientNameInput.value.trim();
+      const clientDni = clientDniInput.value.trim();
+      const clientEmail = clientEmailInput.value.trim();
+      const clientAddress = clientAddressInput.value.trim();
+      const clientBarrio = clientBarrioInput.value.trim();
+      const clientCity = clientCityInput.value.trim();
+      const clientProvince = clientProvinceInput.value.trim();
+      const clientZip = clientZipInput.value.trim();
+
+      const orderId = getNextOrderId();
+      const totalUnits = orderList.reduce((acc, kit) => acc + kit.quantity, 0);
+      const totalCashFormatted = (totalUnits * 50000).toLocaleString('es-AR');
+      const totalCardFormatted = (totalUnits * 55000).toLocaleString('es-AR');
+
+      // -------------------------------------------------------------
+      // A) FORMATO WHATSAPP (Con emojis y formato de negrita de chat)
+      // -------------------------------------------------------------
+      let wsPriceInfo = `💰 *VALOR Y FORMA DE PAGO*\n`;
+      wsPriceInfo += `• Precio promocional por conjunto: $50.000 (hasta Noviembre)\n`;
+      wsPriceInfo += `• Total Efectivo / Transferencia: $${totalCashFormatted}\n`;
+      wsPriceInfo += `• Total Tarjeta (+10% recargo): $${totalCardFormatted}\n\n`;
+
+      let wsKitDetails = `👕 *DETALLE DEL PEDIDO*\n`;
+      orderList.forEach((kit, i) => {
+        wsKitDetails += `*KIT #${i + 1}* (Cantidad: ${kit.quantity})\n`;
+        wsKitDetails += `• Rol: ${kit.role}\n`;
+        wsKitDetails += `• Nombre: ${kit.name} | Número: ${kit.number}\n`;
+        wsKitDetails += `• Talle Camiseta: ${kit.jerseySize} | Talle Short: ${kit.shortsSize}\n`;
+        wsKitDetails += `• Camiseta: ${kit.jerseyColorName}\n`;
+        wsKitDetails += `• Short: ${kit.shortsColorName}\n`;
+        wsKitDetails += `• Medias oficiales: ${kit.socks}\n\n`;
+      });
+
+      let whatsappMessage = `🚨 *ORDEN DE COMPRA ${orderId}*\n`;
+      whatsappMessage += `¡Hola! Quiero encargar un pedido grupal de CHIC.FUTBOL (Total: ${totalUnits} prendas):\n\n`;
+      whatsappMessage += `📋 *DATOS DEL CLIENTE / ENVÍO*\n`;
+      whatsappMessage += `• *Nombre y Apellido:* ${clientName}\n`;
+      whatsappMessage += `• *DNI / CUIT:* ${clientDni}\n\n`;
+      whatsappMessage += wsPriceInfo;
+      whatsappMessage += wsKitDetails;
+
+      // URL optimizada mediante api.whatsapp.com para soportar emojis nativos
+      const encodedMessage = encodeURIComponent(whatsappMessage);
+      pendingWhatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`;
+
+      // -------------------------------------------------------------
+      // B) FORMATO CORREO ELECTRÓNICO (Sin asteriscos de WhatsApp)
+      // -------------------------------------------------------------
+      let mailPriceInfo = `VALOR Y FORMA DE PAGO\n-------------------\n`;
+      mailPriceInfo += `• Precio promocional por conjunto: $50.000 (hasta Noviembre)\n`;
+      mailPriceInfo += `• Total Efectivo / Transferencia: $${totalCashFormatted}\n`;
+      mailPriceInfo += `• Total Tarjeta (+10% recargo): $${totalCardFormatted}\n\n`;
+
+      let mailKitDetails = `DETALLE DEL PEDIDO\n-------------------\n`;
+      orderList.forEach((kit, i) => {
+        mailKitDetails += `KIT #${i + 1} (Cantidad: ${kit.quantity})\n`;
+        mailKitDetails += `• Rol: ${kit.role}\n`;
+        mailKitDetails += `• Nombre: ${kit.name} | Número: ${kit.number}\n`;
+        mailKitDetails += `• Talle Camiseta: ${kit.jerseySize} | Talle Short: ${kit.shortsSize}\n`;
+        mailKitDetails += `• Camiseta: ${kit.jerseyColorName}\n`;
+        mailKitDetails += `• Short: ${kit.shortsColorName}\n`;
+        mailKitDetails += `• Medias oficiales: ${kit.socks}\n\n`;
+      });
+
+      let emailMessage = `ORDEN DE COMPRA ${orderId}\n\n`;
+      emailMessage += `¡Hola! Se ha generado una nueva solicitud en CHIC.FUTBOL (Total: ${totalUnits} prendas):\n\n`;
+      emailMessage += `DATOS DEL CLIENTE / ENVÍO\n-------------------\n`;
+      emailMessage += `• Nombre y Apellido: ${clientName}\n`;
+      emailMessage += `• DNI / CUIT: ${clientDni}\n`;
+      emailMessage += `• Mail: ${clientEmail}\n`;
+      emailMessage += `• Dirección: ${clientAddress}\n`;
+      emailMessage += `• Barrio: ${clientBarrio}\n`;
+      emailMessage += `• Ciudad: ${clientCity}\n`;
+      emailMessage += `• Provincia: ${clientProvince}\n`;
+      emailMessage += `• Código Postal: ${clientZip}\n\n`;
+      emailMessage += mailPriceInfo;
+      emailMessage += mailKitDetails;
+
+      // Enviar mails vía Apps Script
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderId: orderId,
+          clientEmail: clientEmail,
+          chicEmail: 'chic.futbol@gmail.com',
+          orderDetails: emailMessage
+        })
+      }).catch(err => console.error('Error enviando mail:', err));
+
+      // Abrir Pop-up modal de confirmación
+      if (modalClientEmail) modalClientEmail.textContent = clientEmail;
+      emailModal.classList.add('active');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      emailModal.classList.remove('active');
+      if (pendingWhatsappUrl) {
+        window.open(pendingWhatsappUrl, '_blank');
+      }
+    });
+
+    // Reiniciar valores al refrescar o volver atrás
+    window.addEventListener('pageshow', () => {
+      inputName.value = '';
+      inputNumber.value = '';
+      inputQuantity.value = '1';
+
+      svgName.textContent = 'NOMBRE';
+      svgNumber.textContent = '10';
+
+      currentConfig.role = 'Jugadora';
+      currentConfig.jerseySize = 'M';
+      currentConfig.shortsSize = 'M';
+      currentConfig.socks = 'Sí';
+
+      updatePreviewBadges();
+    });
+
+    // Carga inicial
+    document.addEventListener('DOMContentLoaded', () => {
+      updatePreviewBadges();
+    });
+  </script>
+</body>
+</html>
